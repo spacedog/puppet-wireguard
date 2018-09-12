@@ -1,0 +1,22 @@
+# This file is managed by puppet
+[Interface]
+<% if @address.is_a? Array -%>
+    <%- @address.flatten.each do |adr| -%>
+Address = <%= adr %>
+    <%- end -%>
+<%- else -%>
+Address = <%= @address %>
+<%- end -%>
+<%- if @saveconfig %>SaveConfig = true <% end %>
+PrivateKey = <%= @private_key %>
+ListenPort = <%= @listen_port %>
+<%- if @peers -%>
+
+# Peers
+    <%- @peers.each do |peer| -%>
+[Peer]
+        <%- peer.each do |key,value| -%>
+<%= key %> = <%= value %>
+        <%- end %>
+    <%- end -%>
+<%- end -%>
