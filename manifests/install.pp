@@ -27,11 +27,11 @@ class wireguard::install (
 
   $_require = $manage_repo ? {
     true    => Exec['download_wireguard_repo'],
-    default => '',
+    default => undef,
   }
 
   if $manage_package {
-    package {$package_name:
+    package { $package_name:
       ensure  => $package_ensure,
       require => $_require,
     }

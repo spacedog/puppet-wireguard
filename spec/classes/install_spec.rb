@@ -4,12 +4,12 @@ describe 'wireguard::install' do
   let :default_params do
     {
       'package_name'   => [
-        'wireguard-dkim',
+        'wireguard-dkms',
         'wireguard-tools'
       ],
       'repo_url'       => 'http://some.repos.url',
       'manage_repo'    => false,
-      'manage_package' => true,
+      'manage_package' => false,
       'package_ensure' => 'installed',
     }
   end
@@ -30,8 +30,6 @@ describe 'wireguard::install' do
             default_params
           end
           it { is_expected.to compile.with_all_deps }
-          it { is_expected.to contain_package('wireguard-dkim').with_ensure('installed')}
-          it { is_expected.to contain_package('wireguard-tools').with_ensure('installed')}
 
           context "wireguard::install class whith manage_repo = true" do
             let (:params) do
@@ -40,6 +38,15 @@ describe 'wireguard::install' do
                                    })
             end
             it { is_expected.to contain_exec('download_wireguard_repo')}
+          end
+          context "wireguard::install class whith manage_package = true" do
+            let (:params) do
+              default_params.merge({
+                                     'manage_package' => true,
+                                   })
+            end
+            it { is_expected.to contain_package('wireguard-dkms').with_ensure('installed')}
+            it { is_expected.to contain_package('wireguard-tools').with_ensure('installed')}
           end
         end
       end
