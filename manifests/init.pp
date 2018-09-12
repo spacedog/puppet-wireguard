@@ -27,21 +27,21 @@ class wireguard (
   Optional[Hash]         $interfaces      = {},
 ) inherits ::wireguard::params {
 
-  class { 'wireguard::install':
+  class { '::wireguard::install':
     package_name   => $package_name,
     package_ensure => $package_ensure,
     repo_url       => $repo_url,
     manage_repo    => $manage_repo,
     manage_package => $manage_package,
   }
-  -> class { 'wireguard::config':
+  -> class { '::wireguard::config':
     config_dir => $config_dir,
   }
   -> Class[::wireguard]
 
   $interfaces.each |$name, $options| {
     wireguard::interface { $name:
-      * => $options
+      * => $options,
     }
   }
 }

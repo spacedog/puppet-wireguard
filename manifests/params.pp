@@ -9,8 +9,8 @@ class wireguard::params {
       $repo_url       = 'https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo'
       $config_dir     = '/etc/wireguard'
     }
-    defaut: {
-      fail("Unsupported OS family")
+    default: {
+      fail('Unsupported OS family')
     }
   }
 }
