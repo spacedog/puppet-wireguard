@@ -31,10 +31,10 @@ define wireguard::interface (
 ) {
 
   file {"${config_dir}/${name}.conf":
-    ensure => $ensure,
-    mode   => '0600',
-    owner  => 'root',
-    group  => 'root',
+    ensure  => $ensure,
+    mode    => '0600',
+    owner   => 'root',
+    group   => 'root',
     content => template("${module_name}/interface.conf.erb")
   }
 
@@ -48,8 +48,8 @@ define wireguard::interface (
   }
 
   service {"wg-quick@${name}.service":
-    ensure => $_service_ensure,
-    enable => $_service_enable,
+    ensure  => $_service_ensure,
+    enable  => $_service_enable,
     require => File["${config_dir}/${name}.conf"]
   }
 

@@ -33,13 +33,11 @@ class wireguard (
     repo_url       => $repo_url,
     manage_repo    => $manage_repo,
     manage_package => $manage_package,
-  } ->
-
-  class { 'wireguard::config':
+  }
+  -> class { 'wireguard::config':
     config_dir => $config_dir,
-  } ->
-
-  Class[::wireguard]
+  }
+  -> Class[::wireguard]
 
   $interfaces.each |$name, $options| {
     wireguard::interface { $name:
