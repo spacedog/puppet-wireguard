@@ -31,11 +31,12 @@ define wireguard::interface (
 ) {
 
   file {"${config_dir}/${name}.conf":
-    ensure  => $ensure,
-    mode    => '0600',
-    owner   => 'root',
-    group   => 'root',
-    content => template("${module_name}/interface.conf.erb"),
+    ensure    => $ensure,
+    mode      => '0600',
+    owner     => 'root',
+    group     => 'root',
+    show_diff => false,
+    content   => template("${module_name}/interface.conf.erb"),
   }
 
   $_service_ensure = $ensure ? {
