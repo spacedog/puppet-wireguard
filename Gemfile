@@ -19,6 +19,7 @@ group :test do
   gem "puppet-lint-classes_and_types_beginning_with_digits-check"
   gem "puppet-lint-unquoted_string-check"
   gem 'puppet-lint-resource_reference_syntax'
+  gem 'puppet-strings'
 
   gem 'json_pure', '<= 2.0.1' if RUBY_VERSION < '2.0.0'
 end

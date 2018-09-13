@@ -4,11 +4,11 @@
 #   Name the package(s) that installs wireguard
 # @param repo_url
 #   URL of wireguard repo
-# @manage_repo
+# @param manage_repo
 #   Should class manage yum repo
-# @manage_package
+# @param manage_package
 #   Should class install package(s)
-# @package_ensure
+# @param package_ensure
 #   Set state of the package
 class wireguard::install (
   Variant[Array, String] $package_name,
