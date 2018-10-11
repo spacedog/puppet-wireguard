@@ -37,6 +37,7 @@ define wireguard::interface (
     group     => 'root',
     show_diff => false,
     content   => template("${module_name}/interface.conf.erb"),
+    notify    => Service["wg-quick@${name}.service"],
   }
 
   $_service_ensure = $ensure ? {
