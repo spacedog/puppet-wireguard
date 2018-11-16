@@ -20,6 +20,7 @@ describe 'wireguard::interface', :type => :define do
         {
           'PublicKey'  => 'publickey2',
           'AllowedIPs' => '1.1.1.3',
+          'Endpoint'   => '3.3.3.3:12345',
         },
       ],
       'saveconfig'  => true,
@@ -65,6 +66,7 @@ AllowedIPs = 1.1.1.2
 [Peer]
 PublicKey = publickey2
 AllowedIPs = 1.1.1.3
+Endpoint = 3.3.3.3:12345
 
 '
           })

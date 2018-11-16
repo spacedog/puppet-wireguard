@@ -24,6 +24,7 @@ define wireguard::interface (
     {
       'PublicKey'  => String,
       'AllowedIPs' => Optional[String],
+      'Endpoint'   => Optional[String],
     }
   ]]]                   $peers        = [],
   Boolean               $saveconfig   = true,
