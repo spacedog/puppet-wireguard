@@ -186,6 +186,7 @@ Data type: `Optional[Array[Struct[
     {
       'PublicKey'  => String,
       'AllowedIPs' => Optional[String],
+      'Endpoint'   => Optional[String],
     }
   ]]]`
 
