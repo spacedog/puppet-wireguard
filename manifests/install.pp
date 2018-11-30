@@ -19,15 +19,36 @@ class wireguard::install (
 ) {
 
   if $manage_repo {
-    exec {'download_wireguard_repo':
-      command => "/bin/curl -Lo /etc/yum.repos.d/wireguard.repo ${repo_url}",
-      creates => '/etc/yum.repos.d/wireguard.repo',
+    case $facts['os']['name'] {
+      'RedHat', 'CentOS': {
+        exec {'download_wireguard_repo':
+          command => "/bin/curl -Lo /etc/yum.repos.d/wireguard.repo ${repo_url}",
+          creates => '/etc/yum.repos.d/wireguard.repo',
+        }
+      }
+      'Ubuntu': {
+        include ::apt
+        apt::ppa { $repo_url: }
+      }
+      default: {
+        fail('Unsupported OS family')
+      }
     }
   }
 
-  $_require = $manage_repo ? {
-    true    => Exec['download_wireguard_repo'],
-    default => undef,
+  case $facts['os']['name'] {
+    'RedHat', 'CentOS': {
+      $_require = $manage_repo ? {
+        true    => Exec['download_wireguard_repo'],
+        default => undef,
+      }
+    }
+    'Ubuntu': {
+      $_require = Apt::Ppa[$repo_url]
+    }
+    default: {
+      fail('Unsupported OS family')
+    }
   }
 
   if $manage_package {
