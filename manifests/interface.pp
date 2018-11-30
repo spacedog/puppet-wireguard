@@ -51,8 +51,9 @@ define wireguard::interface (
   }
 
   service {"wg-quick@${name}.service":
-    ensure  => $_service_ensure,
-    enable  => $_service_enable,
-    require => File["${config_dir}/${name}.conf"],
+    ensure   => $_service_ensure,
+    provider => 'systemd',
+    enable   => $_service_enable,
+    require  => File["${config_dir}/${name}.conf"],
   }
 }

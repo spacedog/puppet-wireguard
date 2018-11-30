@@ -31,14 +31,29 @@ describe 'wireguard::install' do
           end
           it { is_expected.to compile.with_all_deps }
 
-          context "wireguard::install class whith manage_repo = true" do
-            let (:params) do
-              default_params.merge({
-                                     'manage_repo' => true,
-                                   })
+          case facts[:osfamily]
+          when 'RedHat'
+            context "wireguard::install class whith manage_repo = true" do
+              let (:params) do
+                default_params.merge({
+                                       'manage_repo' => true,
+                                     })
+              end
+              it { is_expected.to contain_exec('download_wireguard_repo')}
             end
-            it { is_expected.to contain_exec('download_wireguard_repo')}
+          when 'Debian'
+            context "wireguard::install class whith manage_repo = true" do
+              let (:params) do
+                default_params.merge({
+                                       'manage_repo' => true,
+                                     })
+              end
+              it { is_expected.to contain_class('Apt')}
+              it { is_expected.to contain_apt__ppa('http://some.repos.url')}
+            end
+
           end
+
           context "wireguard::install class whith manage_package = true" do
             let (:params) do
               default_params.merge({
