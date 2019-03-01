@@ -2,9 +2,10 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   # Returns an array containing the wireguard private and public (in this order) key
   # for a certain interface.
   # @param name The interface name.
+  # @param path Absolut path to the wireguard key files (default '/etc/wireguard').
   # @return [Array] Returns [$private_key, $public_key].
   # @example Creating private and public key for the interface wg0.
-  #   genkey('wg0') => [
+  #   wireguard::genkey('wg0', '/etc/wireguard') => [
   #     '2N0YBID3tnptapO/V5x3GG78KloA8xkLz1QtX6OVRW8=',
   #     'Pz4sRKhRMSet7IYVXXeZrAguBSs+q8oAVMfAAXHJ7S8=',
   #   ]
@@ -21,7 +22,7 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
       File.open(private_key_path, 'w') do |f|
         f << private_key
       end
-      File.delete(public_key_path)
+      File.delete(public_key_path) if File.exist?(public_key_path)
     end
   end
 
@@ -37,11 +38,13 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
     end
   end
 
-  def genkey(name)
-    private_key_path = File.join('/etc/wireguard', "#{name}.key")
-    public_key_path = File.join('/etc/wireguard', "#{name}.pub")
-    [private_key_path,public_key_path].each do |path|
-      raise Puppet::ParseError, "#{path} is a directory" if File.directory?(path)
+  def genkey(name, path='/etc/wireguard')
+    private_key_path = File.join(path, "#{name}.key")
+    public_key_path = File.join(path, "#{name}.pub")
+    [private_key_path,public_key_path].each do |p|
+      raise Puppet::ParseError, "#{p} is a directory" if File.directory?(p)
+      dir = File.dirname(p)
+      raise Puppet::ParseError, "#{dir} is not writable" if not File.writable?(dir)
     end
 
     gen_privkey(private_key_path, public_key_path)
