@@ -13,13 +13,7 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
     return_type 'Array'
   end
 
-  def genkey(name)
-    private_key_path = File.join('/etc/wireguard', "#{name}.key")
-    public_key_path = File.join('/etc/wireguard', "#{name}.pub")
-    [private_key_path,public_key_path].each do |path|
-      raise Puppet::ParseError, "#{path} is a directory" if File.directory?(path)
-    end
-
+  def gen_privkey(private_key_path, public_key_path)
     unless File.exists?(private_key_path)
       private_key = Puppet::Util::Execution.execute(
         ['/usr/bin/wg', 'genkey'],
@@ -29,7 +23,9 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
       end
       File.delete(public_key_path)
     end
+  end
 
+  def gen_pubkey(private_key_path, public_key_path)
     unless File.exists?(public_key_path)
       public_key = Puppet::Util::Execution.execute(
         ['/usr/bin/wg', 'pubkey'],
@@ -39,6 +35,17 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
         f << public_key
       end
     end
+  end
+
+  def genkey(name)
+    private_key_path = File.join('/etc/wireguard', "#{name}.key")
+    public_key_path = File.join('/etc/wireguard', "#{name}.pub")
+    [private_key_path,public_key_path].each do |path|
+      raise Puppet::ParseError, "#{path} is a directory" if File.directory?(path)
+    end
+
+    gen_privkey(private_key_path, public_key_path)
+    gen_pubkey(private_key_path, public_key_path)
     [File.read(private_key_path),File.read(public_key_path)]
   end
 end
