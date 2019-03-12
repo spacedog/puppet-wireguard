@@ -11,3 +11,5 @@
 /log
 .yardoc
 coverage
+.ruby-gemset
+.ruby-version

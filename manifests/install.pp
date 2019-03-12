@@ -44,7 +44,10 @@ class wireguard::install (
       }
     }
     'Ubuntu': {
-      $_require = Apt::Ppa[$repo_url]
+      $_require = $manage_repo ? {
+        true    => Apt::Ppa[$repo_url],
+        default => undef,
+      }
     }
     default: {
       fail('Unsupported OS family')

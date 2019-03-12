@@ -33,7 +33,7 @@ describe 'wireguard::install' do
 
           case facts[:osfamily]
           when 'RedHat'
-            context "wireguard::install class whith manage_repo = true" do
+            context "wireguard::install class with manage_repo = true" do
               let (:params) do
                 default_params.merge({
                                        'manage_repo' => true,
@@ -42,7 +42,7 @@ describe 'wireguard::install' do
               it { is_expected.to contain_exec('download_wireguard_repo')}
             end
           when 'Debian'
-            context "wireguard::install class whith manage_repo = true" do
+            context "wireguard::install class with manage_repo = true" do
               let (:params) do
                 default_params.merge({
                                        'manage_repo' => true,
@@ -51,10 +51,10 @@ describe 'wireguard::install' do
               it { is_expected.to contain_class('Apt')}
               it { is_expected.to contain_apt__ppa('http://some.repos.url')}
             end
-
           end
 
-          context "wireguard::install class whith manage_package = true" do
+
+          context "wireguard::install class with manage_package = true" do
             let (:params) do
               default_params.merge({
                                      'manage_package' => true,
@@ -62,6 +62,16 @@ describe 'wireguard::install' do
             end
             it { is_expected.to contain_package('wireguard-dkms').with_ensure('installed')}
             it { is_expected.to contain_package('wireguard-tools').with_ensure('installed')}
+            context "install custom package whit manage_repo = false" do
+              let (:params) do
+                default_params.merge({
+                                       'manage_package' => true,
+                                       'manage_repo' => false,
+                                       'package_name' => 'my-wg-pkg'
+                                     })
+              end
+              it { is_expected.to contain_package('my-wg-pkg').with_ensure('installed').without_require}
+            end
           end
         end
       end
