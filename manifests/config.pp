@@ -3,12 +3,13 @@
 # @param config_dir
 #   Path to wireguard configuration files
 class wireguard::config (
-  Stdlib::Absolutepath    $config_dir,
+  Stdlib::Absolutepath $config_dir,
+  String               $config_dir_mode,
 ) {
 
   file {$config_dir:
     ensure => 'directory',
-    mode   => '0700',
+    mode   => $config_dir_mode,
     owner  => 'root',
     group  => 'root',
   }

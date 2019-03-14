@@ -11,3 +11,6 @@
 /log
 .yardoc
 coverage
+.ruby-gemset
+.ruby-version
+.rake_tasks~

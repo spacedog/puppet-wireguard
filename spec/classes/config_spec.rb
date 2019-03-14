@@ -3,7 +3,8 @@ require 'spec_helper'
 describe 'wireguard::config' do
   let :default_params do
     {
-      'config_dir'                 => '/etc/wireguard',
+      'config_dir'      => '/etc/wireguard',
+      'config_dir_mode' => '0700'
     }
   end
   context 'supported operating systems' do
