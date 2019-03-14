@@ -1,6 +1,7 @@
 # @summary
 #  Class that contains OS specific parameters for other classes
 class wireguard::params {
+  $config_dir_mode    = '0700'
   case $facts['os']['name'] {
     'RedHat', 'CentOS': {
       $manage_package = true
