@@ -16,20 +16,52 @@
 # @param config_dir
 #   Path to wireguard configuration files
 define wireguard::interface (
-  Variant[Array,String] $address,
-  String                $private_key,
-  Integer[1,65535]      $listen_port,
-  Enum['present','absent'] $ensure = 'present',
+  Variant[Array,String]     $address,
+  Variant[String, Deferred] $private_key,
+  Integer[1,65535]          $listen_port,
+  Enum['present','absent']  $ensure = 'present',
   Optional[Array[Struct[
     {
-      'PublicKey'  => String,
+      'PublicKey'  => Variant[String,Deferred],
       'AllowedIPs' => Optional[String],
       'Endpoint'   => Optional[String],
+      'PersistentKeepalive' => Optional[Integer],
     }
-  ]]]                   $peers        = [],
-  Boolean               $saveconfig   = true,
-  Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
+  ]]]                       $peers        = [],
+  Boolean                   $saveconfig   = true,
+  Stdlib::Absolutepath      $config_dir   = '/etc/wireguard',
 ) {
+
+  $interface_template = @(EOF)
+# This file is managed by puppet
+[Interface]
+Address = <%= $address %>
+<% if $saveconfig { -%>
+SaveConfig = true
+<% } -%>
+PrivateKey = <%= $private_key %>
+ListenPort = <%= $listen_port %>
+<%- if $peers { -%>
+# Peers
+<% $peers.each |$peer| { -%>
+[Peer]
+<% $peer.each |$key,$value| { -%>
+<% if $value { -%>
+<%= $key %> = <%= $value %>
+<% } -%>
+<% } -%>
+<% } -%>
+<% } -%>
+EOF
+
+
+  $content_hash = {
+    'address'     => $address,
+    'private_key' => $private_key,
+    'listen_port' => $listen_port,
+    'peers'       => $peers,
+    'saveconfig'  => $saveconfig
+  }
 
   file {"${config_dir}/${name}.conf":
     ensure    => $ensure,
@@ -37,7 +69,7 @@ define wireguard::interface (
     owner     => 'root',
     group     => 'root',
     show_diff => false,
-    content   => template("${module_name}/interface.conf.erb"),
+    content   => Deferred('inline_epp', [$interface_template, $content_hash]),
     notify    => Service["wg-quick@${name}.service"],
   }
 
