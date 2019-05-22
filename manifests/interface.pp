@@ -22,9 +22,10 @@ define wireguard::interface (
   Enum['present','absent'] $ensure = 'present',
   Optional[Array[Struct[
     {
-      'PublicKey'  => String,
-      'AllowedIPs' => Optional[String],
-      'Endpoint'   => Optional[String],
+      'PublicKey'           => String,
+      'AllowedIPs'          => Optional[String],
+      'Endpoint'            => Optional[String],
+      'PersistentKeepalive' => Optional[Integer],
     }
   ]]]                   $peers        = [],
   Boolean               $saveconfig   = true,
