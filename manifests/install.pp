@@ -30,8 +30,16 @@ class wireguard::install (
         include ::apt
         apt::ppa { $repo_url: }
       }
+      'Debian': {
+        include ::apt
+        apt::source { 'debian_unstable':
+          location => $repo_url,
+          release  => 'unstable',
+          pin      => 90,
+        }
+      }
       default: {
-        fail('Unsupported OS family')
+        warning("Unsupported OS family, couldn't configure package automatically")
       }
     }
   }
@@ -49,8 +57,16 @@ class wireguard::install (
         default => undef,
       }
     }
+    'Debian': {
+      $_require = $manage_repo ? {
+        true    => Apt::Source['debian_unstable'],
+        default => undef,
+      }
+    }
     default: {
-      fail('Unsupported OS family')
+      if $manage_package {
+        warning("Unsupported OS family, couldn't configure package automatically")
+      }
     }
   }
 
