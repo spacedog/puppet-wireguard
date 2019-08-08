@@ -22,7 +22,7 @@ class wireguard::install (
     case $facts['os']['name'] {
       'RedHat', 'CentOS': {
         exec {'download_wireguard_repo':
-          command => "/bin/curl -Lo /etc/yum.repos.d/wireguard.repo ${repo_url}",
+          command => "/usr/bin/curl -Lo /etc/yum.repos.d/wireguard.repo ${repo_url}",
           creates => '/etc/yum.repos.d/wireguard.repo',
         }
       }
