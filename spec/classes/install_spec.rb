@@ -42,14 +42,27 @@ describe 'wireguard::install' do
               it { is_expected.to contain_exec('download_wireguard_repo')}
             end
           when 'Debian'
-            context "wireguard::install class with manage_repo = true" do
-              let (:params) do
-                default_params.merge({
-                                       'manage_repo' => true,
-                                     })
-              end
-              it { is_expected.to contain_class('Apt')}
-              it { is_expected.to contain_apt__ppa('http://some.repos.url')}
+            case facts[:osname]
+            when 'Ubuntu'
+              context "wireguard::install class with manage_repo = true" do
+                let (:params) do
+                  default_params.merge({
+                                        'manage_repo' => true,
+                                      })
+                end
+                it { is_expected.to contain_class('Apt')}
+                it { is_expected.to contain_apt__ppa('http://some.repos.url')}
+            end
+            when 'Debian'
+              context "wireguard::install class with manage_repo = true" do
+                let (:params) do
+                  default_params.merge({
+                                        'manage_repo' => true,
+                                      })
+                end
+                it { is_expected.to contain_class('Apt')}
+                it { is_expected.to contain_apt__source('debian_unstable')}
+            end
             end
           end
 
