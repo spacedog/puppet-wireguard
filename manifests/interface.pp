@@ -34,8 +34,8 @@ define wireguard::interface (
 ) {
 
   transition { ["wg-quick@${name}.service"]:
-    resource   => Service["wg-quick@${name}.service"],
     attributes => { ensure => stopped },
+    resource   => Service["wg-quick@${name}.service"],
     prior_to   => File["${config_dir}/${name}.conf"],
     }
 
