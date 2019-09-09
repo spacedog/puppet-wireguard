@@ -33,12 +33,10 @@ define wireguard::interface (
   Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
 ) {
 
-  transition { transition { ["wg-quick@${name}.service"]:
-   resource   => Service["wg-quick@${name}.service"],
-   attributes => { ensure => stopped },
-   prior_to   => File["${config_dir}/${name}.conf"],
- }
-
+  transition { ["wg-quick@${name}.service"]:
+  resource   => Service["wg-quick@${name}.service"],
+  attributes => { ensure => stopped },
+  prior_to   => File["${config_dir}/${name}.conf"],
 
   file {"${config_dir}/${name}.conf":
     ensure    => $ensure,
