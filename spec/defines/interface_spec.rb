@@ -18,9 +18,10 @@ describe 'wireguard::interface', :type => :define do
           'AllowedIPs' => '1.1.1.2',
         },
         {
-          'PublicKey'  => 'publickey2',
-          'AllowedIPs' => '1.1.1.3',
-          'Endpoint'   => '3.3.3.3:12345',
+          'PublicKey'    => 'publickey2',
+          'AllowedIPs'   => '1.1.1.3',
+          'Endpoint'     => '3.3.3.3:12345',
+          'PresharedKey' => 'output_from_wg_genpsk'
         },
       ],
       'saveconfig'  => true,
@@ -67,6 +68,7 @@ AllowedIPs = 1.1.1.2
 PublicKey = publickey2
 AllowedIPs = 1.1.1.3
 Endpoint = 3.3.3.3:12345
+PresharedKey = output_from_wg_genpsk
 
 '
           })

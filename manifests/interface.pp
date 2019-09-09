@@ -26,6 +26,7 @@ define wireguard::interface (
       'AllowedIPs'          => Optional[String],
       'Endpoint'            => Optional[String],
       'PersistentKeepalive' => Optional[Integer],
+      'PresharedKey'        => Optional[String],
     }
   ]]]                   $peers        = [],
   Boolean               $saveconfig   = true,
