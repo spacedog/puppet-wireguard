@@ -15,6 +15,8 @@
 #   Set state of the package
 # @param config_dir
 #   Path to wireguard configuration files
+# @param config_dir_mode
+#   The config_dir access mode bits
 # @param interfaces
 #   Define wireguard interfaces
 class wireguard (

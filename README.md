@@ -79,6 +79,14 @@ Path to wireguard configuration files
 
 Default value: $::wireguard::params::config_dir
 
+##### `config_dir_mode`
+
+Data type: `String`
+
+The config_dir access mode bits
+
+Default value: $::wireguard::params::config_dir_mode
+
 ##### `interfaces`
 
 Data type: `Optional[Hash]`
@@ -100,6 +108,12 @@ The following parameters are available in the `wireguard::config` class.
 Data type: `Stdlib::Absolutepath`
 
 Path to wireguard configuration files
+
+##### `config_dir_mode`
+
+Data type: `String`
+
+The config_dir access mode bits
 
 ### wireguard::install
 
@@ -184,9 +198,11 @@ Default value: 'present'
 
 Data type: `Optional[Array[Struct[
     {
-      'PublicKey'  => String,
-      'AllowedIPs' => Optional[String],
-      'Endpoint'   => Optional[String],
+      'PublicKey'           => String,
+      'AllowedIPs'          => Optional[String],
+      'Endpoint'            => Optional[String],
+      'PersistentKeepalive' => Optional[Integer],
+      'PresharedKey'        => Optional[String],
     }
   ]]]`
 
