@@ -11,6 +11,7 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   #   ]
   dispatch :genkey do
     required_param 'String', :name
+    optional_param 'String', :path
     return_type 'Array'
   end
 
