@@ -30,11 +30,16 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
 
   def gen_pubkey(private_key_path, public_key_path)
     unless File.exists?(public_key_path)
-      public_key = Puppet::Util::Execution.execute(
-        ['/usr/bin/wg', 'pubkey'],
-        {:failonfail => true,
-         :stdinfile => private_key_path},
-      )
+      # Workardound for https://tickets.puppetlabs.com/browse/SERVER-2683
+      #public_key = Puppet::Util::Execution.execute(
+      #  ['/usr/bin/wg', 'pubkey'],
+      #  {:failonfail => true,
+      #   :stdinfile => private_key_path},
+      #)
+      public_key = `/usr/bin/wg pubkey < #{private_key_path} 2>&1`
+      if $?.to_i > 0
+        raise "Error while generating pubkey (Exitcode: #{$?.to_i}): #{public_key}"
+      end
       File.open(public_key_path, 'w') do |f|
         f << public_key
       end
