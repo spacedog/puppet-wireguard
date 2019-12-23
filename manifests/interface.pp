@@ -6,6 +6,8 @@
 #   The port to listen
 # @param ensure
 #   State of the interface
+# @param enable
+#   Should service be enabled?
 # @param address
 #   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
 #   be assigned to the interface.
@@ -31,6 +33,7 @@ define wireguard::interface (
   String                          $private_key,
   Integer[1,65535]                $listen_port,
   Enum['present','absent']        $ensure   = 'present',
+  Optional[Boolean]               $enable = undef,
   Optional[Variant[Array,String]] $address  = undef,
   Optional[Integer[1,9202]]       $mtu      = undef,
   Optional[Variant[Array,String]] $preup    = undef,
@@ -66,9 +69,12 @@ define wireguard::interface (
     'absent' => 'stopped',
     default  => 'running',
   }
-  $_service_enable = $ensure ? {
-    'absent' => false,
-    default  => true,
+  $_service_enable = $enable ? {
+    undef    => $ensure ? {
+      'absent' => false,
+      default  => true,
+    },
+    default    => $enable,
   }
 
   service {"wg-quick@${name}.service":
