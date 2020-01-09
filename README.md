@@ -167,13 +167,6 @@ Defines wireguard tunnel interfaces
 
 The following parameters are available in the `wireguard::interface` defined type.
 
-##### `address`
-
-Data type: `Variant[Array,String]`
-
-List of IP (v4 or v6) addresses (optionally with CIDR masks) to
-be assigned to the interface.
-
 ##### `private_key`
 
 Data type: `String`
@@ -193,6 +186,15 @@ Data type: `Enum['present','absent']`
 State of the interface
 
 Default value: 'present'
+
+##### `address`
+
+Data type: `Optional[Variant[Array,String]]`
+
+List of IP (v4 or v6) addresses (optionally with CIDR masks) to
+be assigned to the interface.
+
+Default value: `undef`
 
 ##### `peers`
 

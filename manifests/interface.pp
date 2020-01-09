@@ -1,14 +1,14 @@
 # @summary
 #   Defines wireguard tunnel interfaces
-# @param address
-#   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
-#   be assigned to the interface.
 # @param private_key
 #   Private key for data encryption
 # @param listen_port
 #   The port to listen
 # @param ensure
 #   State of the interface
+# @param address
+#   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
+#   be assigned to the interface.
 # @param peers
 #   List of peers for wireguard interface
 # @param saveconfig
@@ -16,10 +16,10 @@
 # @param config_dir
 #   Path to wireguard configuration files
 define wireguard::interface (
-  Variant[Array,String] $address,
-  String                $private_key,
-  Integer[1,65535]      $listen_port,
-  Enum['present','absent'] $ensure = 'present',
+  String                          $private_key,
+  Integer[1,65535]                $listen_port,
+  Enum['present','absent']        $ensure  = 'present',
+  Optional[Variant[Array,String]] $address = undef,
   Optional[Array[Struct[
     {
       'PublicKey'           => String,
