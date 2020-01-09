@@ -27,11 +27,11 @@ class wireguard::install (
         }
       }
       'Ubuntu': {
-        include ::apt
+        include apt
         apt::ppa { $repo_url: }
       }
       'Debian': {
-        include ::apt
+        include apt
         apt::source { 'debian_unstable':
           location => $repo_url,
           release  => 'unstable',
