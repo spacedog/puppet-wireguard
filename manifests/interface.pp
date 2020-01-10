@@ -16,10 +16,16 @@
 # @param config_dir
 #   Path to wireguard configuration files
 define wireguard::interface (
-  Variant[Array,String] $address,
-  String                $private_key,
-  Integer[1,65535]      $listen_port,
-  Enum['present','absent'] $ensure = 'present',
+  Variant[Array,String]    $address,
+  String                   $private_key,
+  Integer[1,65535]         $listen_port,
+  Enum['present','absent'] $ensure      = 'present',
+  Stdlib::Absolutepath     $config_dir  = '/etc/wireguard',
+  Boolean                  $saveconfig  = true,
+  Optional[String]         $preup       = undef,
+  Optional[String]         $postup      = undef,
+  Optional[String]         $predown     = undef,
+  Optional[String]         $postdown    = undef,
   Optional[Array[Struct[
     {
       'PublicKey'           => String,
@@ -28,9 +34,7 @@ define wireguard::interface (
       'PersistentKeepalive' => Optional[Integer],
       'PresharedKey'        => Optional[String],
     }
-  ]]]                   $peers        = [],
-  Boolean               $saveconfig   = true,
-  Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
+  ]]]                      $peers      = [],
 ) {
 
   file {"${config_dir}/${name}.conf":
