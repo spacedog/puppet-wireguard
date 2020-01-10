@@ -74,6 +74,16 @@ PresharedKey = output_from_wg_genpsk
           })
           end
         end
+        context 'wireguard::interface define without an address' do
+          let (:params) do
+            default_params.reject { |key, _| key == 'address' }
+          end
+          it { is_expected.to compile.with_all_deps }
+          it do
+            is_expected.to contain_file('/etc/wireguard/wg0.conf')
+              .without_content(%r{Address})
+          end
+        end
       end
     end
   end

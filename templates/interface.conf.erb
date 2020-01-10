@@ -1,11 +1,13 @@
 # This file is managed by puppet
 [Interface]
-<% if @address.is_a? Array -%>
+<%- if @address -%>
+  <%- if @address.is_a? Array -%>
     <%- @address.flatten.each do |adr| -%>
 Address = <%= adr %>
     <%- end -%>
-<%- else -%>
+  <%- else -%>
 Address = <%= @address %>
+  <%- end -%>
 <%- end -%>
 <% if @saveconfig -%>
 SaveConfig = true
