@@ -32,10 +32,13 @@ class wireguard::install (
       }
       'Debian': {
         include apt
+        apt::pin { 'debian_unstable':
+          release  => 'unstable',
+          priority => 90,
+        }
         apt::source { 'debian_unstable':
           location => $repo_url,
           release  => 'unstable',
-          pin      => 90,
         }
       }
       default: {
