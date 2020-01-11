@@ -61,6 +61,7 @@ describe 'wireguard::install' do
                                       })
                 end
                 it { is_expected.to contain_class('Apt')}
+                it { is_expected.to contain_apt__pin('debian_unstable')}
                 it { is_expected.to contain_apt__source('debian_unstable')}
             end
             end
