@@ -42,7 +42,7 @@ describe 'wireguard::install' do
               it { is_expected.to contain_exec('download_wireguard_repo')}
             end
           when 'Debian'
-            case facts[:osname]
+            case facts[:operatingsystem]
             when 'Ubuntu'
               context "wireguard::install class with manage_repo = true" do
                 let (:params) do
