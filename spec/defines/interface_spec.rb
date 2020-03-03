@@ -25,7 +25,11 @@ describe 'wireguard::interface', :type => :define do
         },
       ],
       'saveconfig'  => true,
-      'config_dir'  => '/etc/wireguard'
+      'config_dir'  => '/etc/wireguard',
+      'preup'       => 'preup-command',
+      'postup'      => 'postup-command',
+      'predown'     => 'predown-command',
+      'postdown'    => 'postdown-command',
     }
   end
   context 'supported operating systems' do
@@ -58,6 +62,10 @@ Address = 2.2.2.2/24
 SaveConfig = true
 PrivateKey = privatekey
 ListenPort = 52980
+PreUp = preup-command
+PostUp = postup-command
+PreDown = predown-command
+PostDown = postdown-command
 
 # Peers
 [Peer]
@@ -96,7 +104,7 @@ PresharedKey = output_from_wg_genpsk
           :operatingsystem => 'Nexenta',
         }
       end
-      it do 
+      it do
         expect { should compile.with_all_deps }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
       end
     end

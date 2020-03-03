@@ -31,6 +31,10 @@ define wireguard::interface (
   ]]]                   $peers        = [],
   Boolean               $saveconfig   = true,
   Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
+  Optional[String]      $preup        = undef,
+  Optional[String]      $postup       = undef,
+  Optional[String]      $predown      = undef,
+  Optional[String]      $postdown     = undef,
 ) {
 
   file {"${config_dir}/${name}.conf":

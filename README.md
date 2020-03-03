@@ -228,3 +228,26 @@ Path to wireguard configuration files
 
 Default value: '/etc/wireguard'
 
+##### `preup`
+
+Data type: `Optional[String]`
+
+Command to execute before the interface is brought up
+
+##### `postup`
+
+Data type: `Optional[String]`
+
+Command to execute after the interface is brought up
+
+##### `predown`
+
+Data type: `Optional[String]`
+
+Command to execute before the interface is taken down
+
+##### `postdown`
+
+Data type: `Optional[String]`
+
+Command to execute after the interface is taken down
