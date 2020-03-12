@@ -9,6 +9,8 @@
 # @param address
 #   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
 #   be assigned to the interface.
+# @param dns
+#   List of IP (v4 or v6) addresses of DNS servers to use
 # @param peers
 #   List of peers for wireguard interface
 # @param saveconfig
@@ -20,6 +22,7 @@ define wireguard::interface (
   Integer[1,65535]                $listen_port,
   Enum['present','absent']        $ensure  = 'present',
   Optional[Variant[Array,String]] $address = undef,
+  Optional[String]                $dns = undef,
   Optional[Array[Struct[
     {
       'PublicKey'           => String,
