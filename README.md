@@ -196,6 +196,14 @@ be assigned to the interface.
 
 Default value: `undef`
 
+##### `dns`
+
+Data: type: `Optional[String]`
+
+List of IP (v4 or v6) addresses of DNS servers to use
+
+Default value: `undef`
+
 ##### `peers`
 
 Data type: `Optional[Array[Struct[
@@ -227,4 +235,3 @@ Data type: `Stdlib::Absolutepath`
 Path to wireguard configuration files
 
 Default value: '/etc/wireguard'
-

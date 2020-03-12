@@ -9,6 +9,7 @@ describe 'wireguard::interface', :type => :define do
         '1.1.1.1/24',
         '2.2.2.2/24'
       ],
+      'dns'         => '1.1.1.1',
       'private_key' => 'privatekey',
       'listen_port' => 52980,
       'ensure'      => 'present',
@@ -58,6 +59,7 @@ Address = 2.2.2.2/24
 SaveConfig = true
 PrivateKey = privatekey
 ListenPort = 52980
+DNS = 1.1.1.1
 
 # Peers
 [Peer]
@@ -96,7 +98,7 @@ PresharedKey = output_from_wg_genpsk
           :operatingsystem => 'Nexenta',
         }
       end
-      it do 
+      it do
         expect { should compile.with_all_deps }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
       end
     end
