@@ -12,6 +12,11 @@ describe 'wireguard::interface', :type => :define do
       'private_key' => 'privatekey',
       'listen_port' => 52980,
       'ensure'      => 'present',
+      'postup'      => [
+          'foo',
+          'bar',
+      ],
+      'postdown'    => 'baz',
       'peers'       => [
         {
           'PublicKey'  => 'publickey1',
@@ -58,6 +63,9 @@ Address = 2.2.2.2/24
 SaveConfig = true
 PrivateKey = privatekey
 ListenPort = 52980
+PostUp = foo
+PostUp = bar
+PostDown = baz
 
 # Peers
 [Peer]

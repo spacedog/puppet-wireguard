@@ -196,6 +196,30 @@ be assigned to the interface.
 
 Default value: `undef`
 
+##### `preup`
+
+Data type: `Optional[Variant[Array,String]]`
+
+List of commands to execute before the interface is brought up
+
+##### `postup`
+
+Data type: `Optional[Variant[Array,String]]`
+
+List of commands to execute after the interface is brought up
+
+##### `predown`
+
+Data type: `Optional[Variant[Array,String]]`
+
+List of commands to execute before the interface is taken down
+
+##### `postdown`
+
+Data type: `Optional[Variant[Array,String]]`
+
+List of commands to execute after the interface is taken down
+
 ##### `peers`
 
 Data type: `Optional[Array[Struct[

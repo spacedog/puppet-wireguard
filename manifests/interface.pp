@@ -9,6 +9,14 @@
 # @param address
 #   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
 #   be assigned to the interface.
+# @param preup
+#   List of commands to run before the interface is brought up
+# @param postup
+#   List of commands to run after the interface is brought up
+# @param predown
+#   List of commands to run before the interface is taken down
+# @param postup
+#   List of commands to run after the interface is taken down
 # @param peers
 #   List of peers for wireguard interface
 # @param saveconfig
@@ -18,8 +26,12 @@
 define wireguard::interface (
   String                          $private_key,
   Integer[1,65535]                $listen_port,
-  Enum['present','absent']        $ensure  = 'present',
-  Optional[Variant[Array,String]] $address = undef,
+  Enum['present','absent']        $ensure   = 'present',
+  Optional[Variant[Array,String]] $address  = undef,
+  Optional[Variant[Array,String]] $preup    = undef,
+  Optional[Variant[Array,String]] $postup   = undef,
+  Optional[Variant[Array,String]] $predown  = undef,
+  Optional[Variant[Array,String]] $postdown = undef,
   Optional[Array[Struct[
     {
       'PublicKey'           => String,
