@@ -19,6 +19,7 @@ describe 'wireguard::interface', :type => :define do
       'postdown'    => 'baz',
       'peers'       => [
         {
+          'Comment'    => 'foo',
           'PublicKey'  => 'publickey1',
           'AllowedIPs' => '1.1.1.2',
         },
@@ -26,7 +27,8 @@ describe 'wireguard::interface', :type => :define do
           'PublicKey'    => 'publickey2',
           'AllowedIPs'   => '1.1.1.3',
           'Endpoint'     => '3.3.3.3:12345',
-          'PresharedKey' => 'output_from_wg_genpsk'
+          'PresharedKey' => 'output_from_wg_genpsk',
+          'Comment'      => 'bar baz',
         },
       ],
       'saveconfig'  => true,
@@ -69,6 +71,7 @@ PostDown = baz
 
 # Peers
 [Peer]
+# foo
 PublicKey = publickey1
 AllowedIPs = 1.1.1.2
 
@@ -77,6 +80,7 @@ PublicKey = publickey2
 AllowedIPs = 1.1.1.3
 Endpoint = 3.3.3.3:12345
 PresharedKey = output_from_wg_genpsk
+# bar baz
 
 '
           })

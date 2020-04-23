@@ -229,6 +229,7 @@ Data type: `Optional[Array[Struct[
       'Endpoint'            => Optional[String],
       'PersistentKeepalive' => Optional[Integer],
       'PresharedKey'        => Optional[String],
+      'Comment'             => Optional[String],
     }
   ]]]`
 

@@ -56,7 +56,11 @@ PostDown = <%= @postdown %>
     <%- @peers.each do |peer| -%>
 [Peer]
         <%- peer.each do |key,value| -%>
+          <%- if key == 'Comment' -%>
+# <%= value %>
+          <%- else -%>
 <%= key %> = <%= value %>
+          <%- end -%>
         <%- end %>
     <%- end -%>
 <%- end -%>
