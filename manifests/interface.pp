@@ -9,6 +9,8 @@
 # @param address
 #   List of IP (v4 or v6) addresses (optionally with CIDR masks) to
 #   be assigned to the interface.
+# @param mtu
+#   Set MTU for the wireguard interface
 # @param preup
 #   List of commands to run before the interface is brought up
 # @param postup
@@ -28,6 +30,7 @@ define wireguard::interface (
   Integer[1,65535]                $listen_port,
   Enum['present','absent']        $ensure   = 'present',
   Optional[Variant[Array,String]] $address  = undef,
+  Optional[Integer[1,9202]]       $mtu      = undef,
   Optional[Variant[Array,String]] $preup    = undef,
   Optional[Variant[Array,String]] $postup   = undef,
   Optional[Variant[Array,String]] $predown  = undef,

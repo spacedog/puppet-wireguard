@@ -14,6 +14,9 @@ SaveConfig = true
 <% end -%>
 PrivateKey = <%= @private_key %>
 ListenPort = <%= @listen_port %>
+<%- if @mtu -%>
+MTU = <%= @mtu %>
+<% end -%>
 <%- if @preup -%>
   <%- if @preup.is_a? Array -%>
     <%- @preup.flatten.each do |p| -%>
