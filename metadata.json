@@ -1,6 +1,6 @@
 {
   "name": "abaranov-wireguard",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "author": "Anton Baranov",
   "summary": "Module that manages wireguard tunnel interfaces",
   "license": "MIT",
