@@ -37,7 +37,7 @@ Data type: `Variant[Array, String]`
 
 Name the package(s) that installs wireguard
 
-Default value: $::wireguard::params::package_name
+Default value: $wireguard::params::package_name
 
 ##### `repo_url`
 
@@ -45,7 +45,7 @@ Data type: `String`
 
 URL of wireguard repo
 
-Default value: $::wireguard::params::repo_url
+Default value: $wireguard::params::repo_url
 
 ##### `manage_repo`
 
@@ -53,7 +53,7 @@ Data type: `Boolean`
 
 Should class manage yum repo
 
-Default value: $::wireguard::params::manage_repo
+Default value: $wireguard::params::manage_repo
 
 ##### `manage_package`
 
@@ -61,7 +61,7 @@ Data type: `Boolean`
 
 Should class install package(s)
 
-Default value: $::wireguard::params::manage_package
+Default value: $wireguard::params::manage_package
 
 ##### `package_ensure`
 
@@ -77,7 +77,7 @@ Data type: `Stdlib::Absolutepath`
 
 Path to wireguard configuration files
 
-Default value: $::wireguard::params::config_dir
+Default value: $wireguard::params::config_dir
 
 ##### `config_dir_mode`
 
@@ -85,7 +85,7 @@ Data type: `String`
 
 The config_dir access mode bits
 
-Default value: $::wireguard::params::config_dir_mode
+Default value: $wireguard::params::config_dir_mode
 
 ##### `interfaces`
 
@@ -196,29 +196,43 @@ be assigned to the interface.
 
 Default value: `undef`
 
+##### `mtu`
+
+Data type: `Optional[Integer[1,9202]]`
+
+Set MTU for the wireguard interface
+
+Default value: `undef`
+
 ##### `preup`
 
 Data type: `Optional[Variant[Array,String]]`
 
-List of commands to execute before the interface is brought up
+List of commands to run before the interface is brought up
+
+Default value: `undef`
 
 ##### `postup`
 
 Data type: `Optional[Variant[Array,String]]`
 
-List of commands to execute after the interface is brought up
+List of commands to run after the interface is brought up
+
+Default value: `undef`
 
 ##### `predown`
 
 Data type: `Optional[Variant[Array,String]]`
 
-List of commands to execute before the interface is taken down
+List of commands to run before the interface is taken down
 
-##### `postdown`
+Default value: `undef`
 
-Data type: `Optional[Variant[Array,String]]`
+##### `postup`
 
-List of commands to execute after the interface is taken down
+List of commands to run after the interface is taken down
+
+Default value: `undef`
 
 ##### `peers`
 
@@ -252,4 +266,12 @@ Data type: `Stdlib::Absolutepath`
 Path to wireguard configuration files
 
 Default value: '/etc/wireguard'
+
+##### `postdown`
+
+Data type: `Optional[Variant[Array,String]]`
+
+
+
+Default value: `undef`
 
