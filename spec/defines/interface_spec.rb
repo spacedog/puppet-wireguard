@@ -31,6 +31,7 @@ describe 'wireguard::interface', :type => :define do
           'Comment'      => 'bar baz',
         },
       ],
+      'mtu'         => 123,
       'saveconfig'  => true,
       'config_dir'  => '/etc/wireguard'
     }
@@ -65,6 +66,7 @@ Address = 2.2.2.2/24
 SaveConfig = true
 PrivateKey = privatekey
 ListenPort = 52980
+MTU = 123
 PostUp = foo
 PostUp = bar
 PostDown = baz
