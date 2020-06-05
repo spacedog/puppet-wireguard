@@ -7,12 +7,25 @@
 class wireguard::config (
   Stdlib::Absolutepath $config_dir,
   String               $config_dir_mode,
+  Boolean              $config_dir_purge,
 ) {
 
-  file {$config_dir:
-    ensure => 'directory',
-    mode   => $config_dir_mode,
-    owner  => 'root',
-    group  => 'root',
+  if $config_dir_purge {
+    file {$config_dir:
+      ensure  => 'directory',
+      mode    => $config_dir_mode,
+      owner   => 'root',
+      group   => 'root',
+      force   => true,
+      recurse => true,
+      purge   => true,
+    }
+  } else {
+    file {$config_dir:
+      ensure => 'directory',
+      mode   => $config_dir_mode,
+      owner  => 'root',
+      group  => 'root',
+    }
   }
 }
