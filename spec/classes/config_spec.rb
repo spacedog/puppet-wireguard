@@ -4,8 +4,8 @@ describe 'wireguard::config' do
   let :default_params do
     {
       'config_dir'       => '/etc/wireguard',
-      'config_dir_mode'  => '0700'
-      'config_dir_purge' => false
+      'config_dir_mode'  => '0700',
+      'config_dir_purge' => false,
     }
   end
   context 'supported operating systems' do
