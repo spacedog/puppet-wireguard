@@ -21,6 +21,8 @@
 #   List of commands to run after the interface is taken down
 # @param peers
 #   List of peers for wireguard interface
+# @param dns
+#   List of IP (v4 or v6) addresses of DNS servers to use
 # @param saveconfig
 #    save current state of the interface upon shutdown
 # @param config_dir
@@ -45,6 +47,7 @@ define wireguard::interface (
       'Comment'             => Optional[String],
     }
   ]]]                   $peers        = [],
+  Optional[String]      $dns          = undef,
   Boolean               $saveconfig   = true,
   Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
 ) {

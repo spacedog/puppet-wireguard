@@ -17,6 +17,9 @@ ListenPort = <%= @listen_port %>
 <%- if @mtu -%>
 MTU = <%= @mtu %>
 <% end -%>
+<%- if @dns -%>
+DNS = <%= @dns %>
+<% end -%>
 <%- if @preup -%>
   <%- if @preup.is_a? Array -%>
     <%- @preup.flatten.each do |p| -%>

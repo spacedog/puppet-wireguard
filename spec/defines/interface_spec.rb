@@ -31,6 +31,7 @@ describe 'wireguard::interface', :type => :define do
           'Comment'      => 'bar baz',
         },
       ],
+      'dns'         => '1.1.1.1,8.8.8.8',
       'mtu'         => 123,
       'saveconfig'  => true,
       'config_dir'  => '/etc/wireguard'
@@ -67,6 +68,7 @@ SaveConfig = true
 PrivateKey = privatekey
 ListenPort = 52980
 MTU = 123
+DNS = 1.1.1.1,8.8.8.8
 PostUp = foo
 PostUp = bar
 PostDown = baz
@@ -110,7 +112,7 @@ PresharedKey = output_from_wg_genpsk
           :operatingsystem => 'Nexenta',
         }
       end
-      it do 
+      it do
         expect { should compile.with_all_deps }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
       end
     end
