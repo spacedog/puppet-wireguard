@@ -16,7 +16,8 @@ class wireguard::params {
       $config_dir     = '/etc/wireguard'
 
       case $facts['os']['release']['full'] {
-        '20.04': {
+        '20.04','18.04': {
+          # Ubuntu 20.04 and Ubuntu 18.04 kernel >= 4.15.0-109 ship with a proper wireguard.ko module
           $manage_repo  = false
           $package_name = ['wireguard-tools']
           $repo_url     = ''
