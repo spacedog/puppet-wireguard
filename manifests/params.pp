@@ -13,20 +13,10 @@ class wireguard::params {
     }
     'Ubuntu': {
       $manage_package = true
+      $manage_repo    = false
+      $package_name   = ['wireguard']
+      $repo_url       = ''
       $config_dir     = '/etc/wireguard'
-
-      case $facts['os']['release']['full'] {
-        '20.04': {
-          $manage_repo  = false
-          $package_name = ['wireguard-tools']
-          $repo_url     = ''
-        }
-        default: {
-          $manage_repo  = true
-          $package_name = ['wireguard', 'wireguard-dkms', 'wireguard-tools']
-          $repo_url     = 'ppa:wireguard/wireguard'
-        }
-      }
     }
     'Debian': {
       $manage_package = true
