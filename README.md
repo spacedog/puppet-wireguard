@@ -251,6 +251,14 @@ List of peers for wireguard interface
 
 Default value: []
 
+##### `dns`
+
+Data type: `Optional[String]`
+
+List of IP (v4 or v6) addresses of DNS servers to use
+
+Default value: `undef`
+
 ##### `saveconfig`
 
 Data type: `Boolean`
@@ -274,4 +282,3 @@ Data type: `Optional[Variant[Array,String]]`
 
 
 Default value: `undef`
-
