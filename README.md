@@ -228,7 +228,9 @@ List of commands to run before the interface is taken down
 
 Default value: `undef`
 
-##### `postup`
+##### `postdown`
+
+Data type: `Optional[Variant[Array,String]]`
 
 List of commands to run after the interface is taken down
 
@@ -274,11 +276,3 @@ Data type: `Stdlib::Absolutepath`
 Path to wireguard configuration files
 
 Default value: '/etc/wireguard'
-
-##### `postdown`
-
-Data type: `Optional[Variant[Array,String]]`
-
-
-
-Default value: `undef`
