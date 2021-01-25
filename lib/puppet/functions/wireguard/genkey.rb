@@ -1,6 +1,5 @@
+# Returns an array containing the wireguard private and public (in this order) key for a certain interface.
 Puppet::Functions.create_function(:'wireguard::genkey') do
-  # Returns an array containing the wireguard private and public (in this order) key
-  # for a certain interface.
   # @param name The interface name.
   # @param path Absolut path to the wireguard key files (default '/etc/wireguard').
   # @return [Array] Returns [$private_key, $public_key].
@@ -11,31 +10,8 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   #   ]
   dispatch :genkey do
     required_param 'String', :name
+    optional_param 'String', :path
     return_type 'Array'
-  end
-
-  def gen_privkey(private_key_path, public_key_path)
-    unless File.exists?(private_key_path)
-      private_key = Puppet::Util::Execution.execute(
-        ['/usr/bin/wg', 'genkey'],
-      )
-      File.open(private_key_path, 'w') do |f|
-        f << private_key
-      end
-      File.delete(public_key_path) if File.exist?(public_key_path)
-    end
-  end
-
-  def gen_pubkey(private_key_path, public_key_path)
-    unless File.exists?(public_key_path)
-      public_key = Puppet::Util::Execution.execute(
-        ['/usr/bin/wg', 'pubkey'],
-        {:stdinfile => private_key_path},
-      )
-      File.open(public_key_path, 'w') do |f|
-        f << public_key
-      end
-    end
   end
 
   def genkey(name, path='/etc/wireguard')
@@ -47,9 +23,9 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
       raise Puppet::ParseError, "#{dir} is not writable" if not File.writable?(dir)
     end
 
-    gen_privkey(private_key_path, public_key_path)
-    gen_pubkey(private_key_path, public_key_path)
-    [File.read(private_key_path),File.read(public_key_path)]
+    private_key = call_function('wireguard::genprivatekey', private_key_path)
+    public_key  = call_function('wireguard::genpublickey', private_key_path, public_key_path)
+    [private_key, public_key]
   end
 end
 

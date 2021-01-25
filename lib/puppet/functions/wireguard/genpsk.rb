@@ -1,5 +1,5 @@
+# Returns string containing the wireguard psk for a certain interface.
 Puppet::Functions.create_function(:'wireguard::genpsk') do
-  # Returns string containing the wireguard psk for a certain interface.
   # @param name The interface name.
   # @param path Absolut path to the wireguard key files (default '/etc/wireguard').
   # @return [String] Returns psk.

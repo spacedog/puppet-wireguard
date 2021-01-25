@@ -1,0 +1,84 @@
+<%- | Optional[Variant[Array,String]] $address,
+      Boolean                         $saveconfig,
+      String                          $private_key,
+      Integer[1,65535]                $listen_port,
+      Optional[Integer[1,9202]]       $mtu,
+      Optional[String]                $dns,
+      Optional[Variant[Array,String]] $preup,
+      Optional[Variant[Array,String]] $postup,
+      Optional[Variant[Array,String]] $predown,
+      Optional[Variant[Array,String]] $postdown,
+      Array                           $peers,
+| -%>
+# This file is managed by puppet
+[Interface]
+<%- if $address { -%>
+  <%- if $address =~ Array { -%>
+    <%- $address.flatten.each |$adr| { -%>
+Address = <%= $adr %>
+    <%- } -%>
+  <%- } else {-%>
+Address = <%= $address %>
+  <%- } -%>
+<%- } -%>
+<% if $saveconfig { -%>
+SaveConfig = true
+<% } -%>
+PrivateKey = <%= $private_key %>
+ListenPort = <%= $listen_port %>
+<%- if $mtu { -%>
+MTU = <%= $mtu %>
+<% } -%>
+<%- if $dns { -%>
+DNS = <%= $dns %>
+<% } -%>
+<%- if $preup { -%>
+  <%- if $preup =~ Array { -%>
+    <%- $preup.flatten.each |$p| { -%>
+PreUp = <%= $p %>
+    <%- } -%>
+  <%- } else { -%>
+PreUp = <%= $preup %>
+  <%- } -%>
+<%- } -%>
+<%- if $postup { -%>
+  <%- if $postup =~ Array { -%>
+    <%- $postup.flatten.each |$p| { -%>
+PostUp = <%= $p %>
+    <%- } -%>
+  <%- } else { -%>
+PostUp = <%= $postup %>
+  <%- } -%>
+<%- } -%>
+<%- if $predown { -%>
+  <%- if $predown =~ Array { -%>
+    <%- $predown.flatten.each |$p| { -%>
+PreDown = <%= $p %>
+    <%- } -%>
+  <%- } else { -%>
+PreDown = <%= $predown %>
+  <%- } -%>
+<%- } -%>
+<%- if $postdown { -%>
+  <%- if $postdown =~ Array { -%>
+    <%- $postdown.flatten.each |$p| { -%>
+PostDown = <%= $p %>
+    <%- } -%>
+  <%- } else { -%>
+PostDown = <%= $postdown %>
+  <%- } -%>
+<%- } -%>
+<%- if $peers { -%>
+
+# Peers
+    <%- $peers.each |$peer| { -%>
+[Peer]
+        <%- $peer.each |$key,$value| { -%>
+          <%- if $key == 'Comment' { -%>
+# <%= $value -%>
+          <%- } else { -%>
+<%= $key %> = <%= $value -%>
+          <%- } %>
+        <%- } %>
+    <%- } -%>
+<%- } -%>
