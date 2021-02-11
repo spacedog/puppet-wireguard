@@ -50,7 +50,7 @@ define wireguard::interface (
     }
   ]]]                   $peers        = [],
   Optional[String]      $dns          = undef,
-  Optional[String]      $table          = 'auto',
+  Optional[Variant[Enum['auto', 'off'],Integer]]      $table          = undef,
   Boolean               $saveconfig   = true,
   Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
 ) {
