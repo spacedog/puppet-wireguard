@@ -1,7 +1,7 @@
 # This file is managed by puppet
 [Interface]
-<%- if @address -%>
-  <%- if @address.is_a? Array -%>
+<%- if @address
+  if @address.is_a? Array -%>
     <%- @address.flatten.each do |adr| -%>
 Address = <%= adr %>
     <%- end -%>
@@ -9,9 +9,9 @@ Address = <%= adr %>
 Address = <%= @address %>
   <%- end -%>
 <%- end -%>
-<% if @saveconfig -%>
+<%- if @saveconfig -%>
 SaveConfig = true
-<% end -%>
+<%- end -%>
 PrivateKey = <%= @private_key %>
 ListenPort = <%= @listen_port %>
 <%- if @mtu -%>
@@ -59,14 +59,14 @@ PostDown = <%= @postdown %>
 <%- if @peers -%>
 
 # Peers
-    <%- @peers.each do |peer| -%>
+  <%- @peers.each do |peer| -%>
 [Peer]
-        <%- peer.each do |key,value| -%>
-          <%- if key == 'Comment' -%>
+  <%- peer.each do |key,value| -%>
+    <%- if key == 'Comment' -%>
 # <%= value %>
-          <%- else -%>
+      <%- else -%>
 <%= key %> = <%= value %>
-          <%- end -%>
-        <%- end %>
+      <%- end -%>
     <%- end -%>
+  <%- end -%>
 <%- end -%>
