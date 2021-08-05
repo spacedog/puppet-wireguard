@@ -23,6 +23,8 @@
 #   List of peers for wireguard interface
 # @param dns
 #   List of IP (v4 or v6) addresses of DNS servers to use
+# @param table
+#   Routing-table to use (default auto)
 # @param saveconfig
 #    save current state of the interface upon shutdown
 # @param config_dir
@@ -48,6 +50,7 @@ define wireguard::interface (
     }
   ]]]                   $peers        = [],
   Optional[String]      $dns          = undef,
+  Optional[Variant[Enum['auto', 'off'],Integer]]      $table          = undef,
   Boolean               $saveconfig   = true,
   Stdlib::Absolutepath  $config_dir   = '/etc/wireguard',
 ) {
