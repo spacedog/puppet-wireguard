@@ -20,6 +20,9 @@ MTU = <%= @mtu %>
 <%- if @dns -%>
 DNS = <%= @dns %>
 <% end -%>
+<%- if @table -%>
+Table = <%= @table %>
+<% end -%>
 <%- if @preup -%>
   <%- if @preup.is_a? Array -%>
     <%- @preup.flatten.each do |p| -%>

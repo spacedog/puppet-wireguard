@@ -32,6 +32,7 @@ describe 'wireguard::interface', type: :define do
         },
       ],
       'dns'         => '1.1.1.1,8.8.8.8',
+      'table'         => 'auto',
       'mtu'         => 123,
       'saveconfig'  => true,
       'config_dir'  => '/etc/wireguard',
@@ -70,6 +71,7 @@ PrivateKey = privatekey
 ListenPort = 52980
 MTU = 123
 DNS = 1.1.1.1,8.8.8.8
+Table = auto
 PostUp = foo
 PostUp = bar
 PostDown = baz
