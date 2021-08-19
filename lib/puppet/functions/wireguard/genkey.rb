@@ -15,41 +15,41 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   end
 
   def gen_privkey(private_key_path, public_key_path)
-    unless File.exists?(private_key_path)
-      private_key = Puppet::Util::Execution.execute(
-        ['/usr/bin/wg', 'genkey'],
-      )
-      File.open(private_key_path, 'w') do |f|
-        f << private_key
-      end
-      File.delete(public_key_path) if File.exist?(public_key_path)
+    return if File.exist?(private_key_path)
+
+    private_key = Puppet::Util::Execution.execute(
+      ['/usr/bin/wg', 'genkey'],
+    )
+    File.open(private_key_path, 'w') do |f|
+      f << private_key
     end
+    File.delete(public_key_path) if File.exist?(public_key_path)
   end
 
   def gen_pubkey(private_key_path, public_key_path)
-    unless File.exists?(public_key_path)
-      public_key = Puppet::Util::Execution.execute(
-        ['/usr/bin/wg', 'pubkey'],
-        {:stdinfile => private_key_path},
-      )
-      File.open(public_key_path, 'w') do |f|
-        f << public_key
-      end
+    return if File.exist?(public_key_path)
+
+    public_key = Puppet::Util::Execution.execute(
+      ['/usr/bin/wg', 'pubkey'],
+      stdinfile: private_key_path,
+    )
+    File.open(public_key_path, 'w') do |f|
+      f << public_key
     end
   end
 
-  def genkey(name, path='/etc/wireguard')
+  def genkey(name, path = '/etc/wireguard')
     private_key_path = File.join(path, "#{name}.key")
     public_key_path = File.join(path, "#{name}.pub")
-    [private_key_path,public_key_path].each do |p|
+    [private_key_path, public_key_path].each do |p|
       raise Puppet::ParseError, "#{p} is a directory" if File.directory?(p)
       dir = File.dirname(p)
-      raise Puppet::ParseError, "#{dir} is not writable" if not File.writable?(dir)
+      raise Puppet::ParseError, "#{dir} is not writable" unless File.writable?(dir)
     end
 
     gen_privkey(private_key_path, public_key_path)
     gen_pubkey(private_key_path, public_key_path)
-    [File.read(private_key_path),File.read(public_key_path)]
+    [File.read(private_key_path), File.read(public_key_path)]
   end
 end
 

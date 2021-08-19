@@ -11,13 +11,13 @@ Puppet::Functions.create_function(:'wireguard::genpsk') do
     return_type 'String'
   end
 
-  def genpsk(name, path='/etc/wireguard')
+  def genpsk(name, path = '/etc/wireguard')
     psk_path = File.join(path, "#{name}.psk")
     raise Puppet::ParseError, "#{psk_path} is a directory" if File.directory?(psk_path)
     dir = File.dirname(psk_path)
-    raise Puppet::ParseError, "#{dir} is not writable" if not File.writable?(dir)
+    raise Puppet::ParseError, "#{dir} is not writable" unless File.writable?(dir)
 
-    unless File.exists?(psk_path)
+    unless File.exist?(psk_path)
       psk = Puppet::Util::Execution.execute(
         ['/usr/bin/wg', 'genpsk'],
       )
