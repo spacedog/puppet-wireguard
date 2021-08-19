@@ -31,11 +31,11 @@ describe 'wireguard::interface', type: :define do
           'Comment'      => 'bar baz',
         },
       ],
-      'dns'         => '1.1.1.1,8.8.8.8',
-      'table'         => 'auto',
-      'mtu'         => 123,
-      'saveconfig'  => true,
-      'config_dir'  => '/etc/wireguard',
+      'dns'        => '1.1.1.1,8.8.8.8',
+      'table'      => 'auto',
+      'mtu'        => 123,
+      'saveconfig' => true,
+      'config_dir' => '/etc/wireguard',
     }
   end
 
