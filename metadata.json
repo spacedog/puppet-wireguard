@@ -1,6 +1,6 @@
 {
   "name": "abaranov-wireguard",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "author": "Anton Baranov",
   "summary": "Module that manages wireguard tunnel interfaces",
   "license": "MIT",
@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 4.0.0 < 7.0.0"
+      "version_requirement": ">= 4.0.0"
     }
   ],
   "operatingsystem_support": [
