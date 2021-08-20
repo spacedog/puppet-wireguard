@@ -1,8 +1,10 @@
 fixtures:
   repositories:
-    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    stdlib:
+      repos: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+      # Version is compatible with puppet4/6/7
+      ref: "5.2.0"
     apt:
       repo: "https://github.com/puppetlabs/puppetlabs-apt.git"
-      ref: "6.3.0"
   symlinks:
     wireguard: "#{source_dir}"
