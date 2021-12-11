@@ -6,7 +6,7 @@ class wireguard::params {
   $manage_package     = true
   $config_dir         = '/etc/wireguard'
   case $facts['os']['name'] {
-    'RedHat', 'CentOS', 'VirtuozzoLinux': {
+    'RedHat', 'CentOS', 'VirtuozzoLinux', 'Rocky': {
       $manage_repo    = true
       $package_name   = ['wireguard-dkms', 'wireguard-tools']
       $repo_url       = 'https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo'
