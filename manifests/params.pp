@@ -13,7 +13,7 @@ class wireguard::params {
         $repo_url       = 'https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo'
       } else {
         $manage_repo    = false
-        $package_name   = ['wireguard']
+        $package_name   = ['wireguard-tools']
         $repo_url       = ''
       }
     }
