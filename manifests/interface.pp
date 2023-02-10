@@ -62,7 +62,6 @@ define wireguard::interface (
     group     => 'root',
     show_diff => false,
     content   => template("${module_name}/interface.conf.erb"),
-    notify    => Service["wg-quick@${name}.service"],
   }
 
   $_service_ensure = $ensure ? {
@@ -78,6 +77,11 @@ define wireguard::interface (
     ensure   => $_service_ensure,
     provider => 'systemd',
     enable   => $_service_enable,
-    require  => File["${config_dir}/${name}.conf"],
+  }
+
+  if $ensure == 'absent' {
+    Service["wg-quick@${name}.service"] -> File["${config_dir}/${name}.conf"]
+  } else {
+    File["${config_dir}/${name}.conf"] ~> Service["wg-quick@${name}.service"]
   }
 }
