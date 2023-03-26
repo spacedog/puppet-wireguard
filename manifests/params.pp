@@ -18,7 +18,7 @@ class wireguard::params {
     }
     'Debian': {
       case $facts['os']['release']['major'] {
-        '11': {
+        '11', '12': {
           $manage_repo  = false
           $package_name = ['wireguard']
           $repo_url     = ''
