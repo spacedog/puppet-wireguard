@@ -16,7 +16,7 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   end
 
   def gen_privkey(private_key_path, public_key_path)
-    unless File.exists?(private_key_path)
+    unless File.exist?(private_key_path)
       private_key = Puppet::Util::Execution.execute(
         ['/usr/bin/wg', 'genkey'],
         {:failonfail => true, },
@@ -29,7 +29,7 @@ Puppet::Functions.create_function(:'wireguard::genkey') do
   end
 
   def gen_pubkey(private_key_path, public_key_path)
-    unless File.exists?(public_key_path)
+    unless File.exist?(public_key_path)
       # Workardound for https://tickets.puppetlabs.com/browse/SERVER-2683
       #public_key = Puppet::Util::Execution.execute(
       #  ['/usr/bin/wg', 'pubkey'],

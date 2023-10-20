@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:'wireguard::genpsk') do
     dir = File.dirname(psk_path)
     raise Puppet::ParseError, "#{dir} is not writable" if not File.writable?(dir)
 
-    unless File.exists?(psk_path)
+    unless File.exist?(psk_path)
       psk = Puppet::Util::Execution.execute(
         ['/usr/bin/wg', 'genpsk'],
       )
